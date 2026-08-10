@@ -3,217 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能浴霸推光控制系统 | Lumina Bath Smart Light Controller</title>
-    <meta name="description" content="高端智能浴霸推光与无级调光系统，支持暖风、换气、吹风及2700K-6500K无级推光调色控制。">
+    <title>TITAN FIT 泰坦极速健身中心 | 突破极限 打造非凡体魄</title>
+    <meta name="description" content="TITAN FIT 泰坦极速健身 - 24小时智能健身会所。提供重型力量区、有氧极速区、恒温泳池、HIIT燃脂及一对一金牌私教课程，即刻预约领取3天免费体验通卡！">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="app-background" id="ambientBg"></div>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-bold">TITAN</span><span class="logo-highlight">FIT</span>
+                <span class="logo-sub">CLUB</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">会所优势</a></li>
+                <li><a href="#classes">特色课程</a></li>
+                <li><a href="#trainers">金牌教练</a></li>
+                <li><a href="#pricing">会员卡种</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#trial-form" class="btn btn-primary glow-effect">领取3天通卡</a>
+            </div>
+            <button class="mobile-menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
 
-    <div class="app-container">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="brand">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
-                    </svg>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge-pill">
+                    <span class="pulse-tag">NEW</span> 24H 智能全时极速健身会所
                 </div>
+                <h1 class="hero-title">
+                    重塑自我 <br>
+                    <span class="gradient-text">突破肉体与意志的极限</span>
+                </h1>
+                <p class="hero-desc">
+                    结合顶尖悍马力量器械、AI 智能体测系统与国际认证私教团队。让每一次汗水，都成为蜕变的勋章。
+                </p>
+                <div class="hero-cta-group">
+                    <a href="#trial-form" class="btn btn-large btn-primary glow-effect">
+                        🔥 预约免费体验通卡
+                    </a>
+                    <a href="#classes" class="btn btn-large btn-outline">
+                        探索特色课程 ➔
+                    </a>
+                </div>
+                <!-- Stat Counter Grid -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="3500">3,500+</span>
+                        <span class="stat-label">活跃健身会员</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="45">45+</span>
+                        <span class="stat-label">国际认证金牌教练</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">全天候智能刷脸入场</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features & Facilities Section -->
+    <section class="section-padding features-section" id="features">
+        <div class="container">
+            <div class="section-header center">
+                <span class="section-tag font-accent">HARDCORE FACILITIES</span>
+                <h2 class="section-title">全方位硬核健身环境</h2>
+                <p class="section-subtitle">3000㎡ 独栋极简工业风空间，配备顶尖进口训练器材与智能环境新风系统</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏋️‍♂️</div>
+                    <h3>重型自由力量区</h3>
+                    <p>全套 Hammer Strength（悍马）与 Eleiko 举重重型器械，助你突破深蹲卧推极限。</p>
+                </div>
+                <div class="feature-card highlighted">
+                    <div class="feature-icon">🏃‍♂️</div>
+                    <h3>极速有氧与心肺区</h3>
+                    <p>Technogym 智能触控跑步机、划船机与无轨履带车，配备独立巨幕沉浸式视听。 </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏊‍♂️</div>
+                    <h3>50米恒温竞技泳池</h3>
+                    <p>26℃ 恒温水质过滤系统，国际标准多泳道设计，专业水上训练与舒缓放松。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>InBody AI 智能体测</h3>
+                    <p>毫秒级体成分与肌肉分布分析，生成专属维度对比与饮食营养规划报告。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🥊</div>
+                    <h3>格斗八角笼与搏击区</h3>
+                    <p>专业泰拳与 MMA 八角笼训练场地，高消耗燃脂与解压搏击训练。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧘‍♀️</div>
+                    <h3>大器械普拉提私教房</h3>
+                    <p>进口 Reformer 普拉提核心床，针对脊椎矫正、体态优化与核心塑形。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Classes Section -->
+    <section class="section-padding classes-section" id="classes">
+        <div class="container">
+            <div class="section-header">
                 <div>
-                    <h1>Lumina 极光浴霸</h1>
-                    <span class="status-badge" id="connStatus">
-                        <span class="pulse-dot"></span> 智能联机中
-                    </span>
+                    <span class="section-tag font-accent">FEATURED COURSES</span>
+                    <h2 class="section-title">特色高能训练课程</h2>
+                </div>
+                <p class="section-subtitle">满足力量增长、极速燃脂、体态矫正与心肺提升的多样化训练需求</p>
+            </div>
+
+            <div class="classes-slider">
+                <div class="class-card">
+                    <div class="class-badge">高燃脂</div>
+                    <div class="class-img-placeholder c-bg-1">
+                        <span class="c-icon">🔥</span>
+                    </div>
+                    <div class="class-info">
+                        <h3>TITAN HIIT 极限燃脂</h3>
+                        <p class="class-desc">45分钟高强度间歇训练，持续引发EPOC后燃效应，单次消耗高达800大卡。</p>
+                        <div class="class-meta">
+                            <span>⏱️ 45 分钟</span>
+                            <span>⚡ 强度：★★★★★</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-badge">增肌塑形</div>
+                    <div class="class-img-placeholder c-bg-2">
+                        <span class="c-icon">💪</span>
+                    </div>
+                    <div class="class-info">
+                        <h3>力量巨型组推拉训练</h3>
+                        <p class="class-desc">针对胸背腿核心肌群，配合渐进式负荷，打造清晰肌肉线条与硬朗轮廓。</p>
+                        <div class="class-meta">
+                            <span>⏱️ 60 分钟</span>
+                            <span>⚡ 强度：★★★★☆</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="class-card">
+                    <div class="class-badge">柔韧塑形</div>
+                    <div class="class-img-placeholder c-bg-3">
+                        <span class="c-icon">🧘</span>
+                    </div>
+                    <div class="class-info">
+                        <h3>热瑜伽与核心拉伸</h3>
+                        <p class="class-desc">在38℃恒温环境中深度拉伸韧带，排出体内毒素，缓解工作疲劳与肌肉紧张。</p>
+                        <div class="class-meta">
+                            <span>⏱️ 60 分钟</span>
+                            <span>⚡ 强度：★★★☆☆</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="environment-info">
-                <div class="env-item">
-                    <span class="env-label">浴室温度</span>
-                    <span class="env-val" id="tempDisplay">28°C</span>
+        </div>
+    </section>
+
+    <!-- Elite Trainers Section -->
+    <section class="section-padding trainers-section" id="trainers">
+        <div class="container">
+            <div class="section-header center">
+                <span class="section-tag font-accent">PRO TRAINERS</span>
+                <h2 class="section-title">国际认证金牌教练团队</h2>
+                <p class="section-subtitle">均具备 NSCA-CPT / ACE / ACSM 权威认证，平均 8 年以上从业执教经验</p>
+            </div>
+
+            <div class="trainers-grid">
+                <div class="trainer-card">
+                    <div class="trainer-avatar t-bg-1">
+                        <span class="t-emoji">🏋️</span>
+                    </div>
+                    <div class="trainer-details">
+                        <h3>Alex Ray 亚历克斯</h3>
+                        <span class="trainer-role">总教练 / 力量举冠军</span>
+                        <p class="trainer-bio">精通大重量力量增长与运动康复，带教超过 500 位学员成功增肌纯肉 10kg+。</p>
+                        <div class="trainer-tags">
+                            <span>NSCA-CSCS</span>
+                            <span>力量爆发</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="env-item">
-                    <span class="env-label">浴室湿度</span>
-                    <span class="env-val" id="humidityDisplay">55%</span>
+
+                <div class="trainer-card">
+                    <div class="trainer-avatar t-bg-2">
+                        <span class="t-emoji">💃</span>
+                    </div>
+                    <div class="trainer-details">
+                        <h3>Elena 艾琳娜</h3>
+                        <span class="trainer-role">普拉提大师 / 体态导师</span>
+                        <p class="trainer-bio">前国家体操队退役运动员，擅长产后恢复、圆肩驼背矫正与紧致马甲线打造。</p>
+                        <div class="trainer-tags">
+                            <span>PMA认证</span>
+                            <span>体态矫正</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trainer-card">
+                    <div class="trainer-avatar t-bg-3">
+                        <span class="t-emoji">🥊</span>
+                    </div>
+                    <div class="trainer-details">
+                        <h3>Marcus 马库斯</h3>
+                        <span class="trainer-role">搏击总监 / 前金腰带拳手</span>
+                        <p class="trainer-bio">专注于泰拳与减脂搏击训练，以激情的教学风格帮助学员极速释放压力。</p>
+                        <div class="trainer-tags">
+                            <span>WBC Coach</span>
+                            <span>减脂搏击</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </section>
 
-        <!-- Main Visualizer (Simulated Bath Heater Device Panel) -->
-        <main class="main-content">
-            <section class="device-preview-card">
-                <div class="preview-header">
-                    <h2>浴霸设备状态视图</h2>
-                    <span class="mode-tag" id="activeModeTag">日常照明模式</span>
+    <!-- Pricing Membership Packages -->
+    <section class="section-padding pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header center">
+                <span class="section-tag font-accent">MEMBERSHIP PLANS</span>
+                <h2 class="section-title">尊享会员卡种选购</h2>
+                <p class="section-subtitle">灵活无忧退换，支持全国分店通刷与免费停放车辆</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Basic Card -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>月度体验卡</h3>
+                        <span class="plan-subtitle">适合短期健身尝鲜</span>
+                    </div>
+                    <div class="plan-price">
+                        <span class="currency">¥</span><span class="price">399</span><span class="unit">/月</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>✔️ 24/7 全时段刷脸自由入场</li>
+                        <li>✔️ 包含全套有氧与自由力量区</li>
+                        <li>✔️ 赠送 1 次 InBody 智能体测</li>
+                        <li>❌ 包含恒温泳池</li>
+                        <li>❌ 私教一对一体验课</li>
+                    </ul>
+                    <a href="#trial-form" class="btn btn-outline full-width">立即开通</a>
                 </div>
 
-                <div class="heater-unit" id="heaterUnit">
-                    <!-- Lighting Panel Surface -->
-                    <div class="light-surface" id="lightSurface">
-                        <div class="light-rays"></div>
-                        <div class="light-core" id="lightCore"></div>
+                <!-- Featured VIP Card -->
+                <div class="pricing-card featured">
+                    <div class="popular-ribbon">🔥 最受推荐</div>
+                    <div class="plan-header">
+                        <h3>黑金尊享年卡</h3>
+                        <span class="plan-subtitle">性价比之王 每天仅需8元</span>
                     </div>
-                    <!-- Heating Coils & Air Vents Simulation -->
-                    <div class="vent-panel">
-                        <div class="vent-grill fan-vent" id="fanVent">
-                            <div class="fan-blade" id="fanBlade"></div>
-                        </div>
-                        <div class="heat-coils" id="heatCoils">
-                            <span class="coil"></span>
-                            <span class="coil"></span>
-                            <span class="coil"></span>
-                        </div>
+                    <div class="plan-price">
+                        <span class="currency">¥</span><span class="price">2,999</span><span class="unit">/年</span>
                     </div>
+                    <ul class="plan-features">
+                        <li>✔️ 24/7 全时段全店通卡自由入场</li>
+                        <li>✔️ 免费畅游 50M 恒温竞技泳池</li>
+                        <li>✔️ 赠送 3 次金牌私教 1对1 定制课</li>
+                        <li>✔️ 每月无限次 InBody 深度体测报告</li>
+                        <li>✔️ 免费停车 3 小时 + 专属衣橱锁柜</li>
+                    </ul>
+                    <a href="#trial-form" class="btn btn-primary glow-effect full-width">立即抢购 (限时送2个月)</a>
                 </div>
 
-                <!-- Light Dimming Push Slider (推光控制核心区域) -->
-                <div class="push-light-section">
-                    <div class="section-title-row">
-                        <div class="title-with-icon">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>
-                            </svg>
-                            <h3>无级推光调光棒 (Push Dimmer)</h3>
-                        </div>
-                        <div class="readout">
-                            <span class="readout-val" id="brightnessReadout">80%</span>
-                        </div>
+                <!-- Season Pass -->
+                <div class="pricing-card">
+                    <div class="plan-header">
+                        <h3>季度通卡</h3>
+                        <span class="plan-subtitle">适合中长期塑形计划</span>
                     </div>
-
-                    <!-- Touch Interactive Push Light Bar -->
-                    <div class="push-bar-container" id="pushBarTrack">
-                        <div class="push-bar-fill" id="pushBarFill"></div>
-                        <div class="push-bar-handle" id="pushBarHandle">
-                            <div class="handle-grip"></div>
-                            <span class="handle-tooltip" id="pushBarTooltip">80%</span>
-                        </div>
-                        <div class="push-bar-ticks">
-                            <span>0%</span>
-                            <span>25%</span>
-                            <span>50%</span>
-                            <span>75%</span>
-                            <span>100%</span>
-                        </div>
+                    <div class="plan-price">
+                        <span class="currency">¥</span><span class="price">999</span><span class="unit">/季</span>
                     </div>
+                    <ul class="plan-features">
+                        <li>✔️ 24/7 全时段刷脸自由入场</li>
+                        <li>✔️ 包含全套力量器械与团操课</li>
+                        <li>✔️ 赠送 1 次金牌私教体验课</li>
+                        <li>✔️ 赠送 3 次 InBody 体测报告</li>
+                        <li>❌ 专属固定衣橱</li>
+                    </ul>
+                    <a href="#trial-form" class="btn btn-outline full-width">立即开通</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <!-- Color Temp Slider (色温推杆 2700K - 6500K) -->
-                    <div class="color-temp-row">
-                        <span class="temp-tag warm">暖光 2700K</span>
-                        <input type="range" id="colorTempRange" min="2700" max="6500" value="4500" class="temp-slider">
-                        <span class="temp-tag cool">冷白光 6500K</span>
+    <!-- Free Trial Booking Form Section -->
+    <section class="section-padding trial-section" id="trial-form">
+        <div class="container">
+            <div class="trial-box">
+                <div class="trial-text">
+                    <span class="section-tag font-accent">LIMITED PASS</span>
+                    <h2>立即领取 3 天免费深度体验通卡</h2>
+                    <p>填写表单提交，即刻获得客服一对一联系，免费体验全场器材、恒温泳池与 InBody 智能体测一次！</p>
+                    <div class="guarantee-list">
+                        <span>🔒 隐私严格保密</span>
+                        <span>⚡ 30秒快速响应</span>
+                        <span>🎁 赠体测报告</span>
                     </div>
                 </div>
-            </section>
-
-            <!-- Control Controls Panel -->
-            <section class="control-panel">
-                <!-- Preset Scenes Quick Access -->
-                <div class="card scene-presets">
-                    <h3>推光场景预设</h3>
-                    <div class="preset-grid">
-                        <button class="preset-btn active" data-brightness="80" data-temp="4500" data-mode="normal">
-                            <span class="preset-icon">☀️</span>
-                            <span class="preset-name">舒适洗浴</span>
-                            <span class="preset-desc">80% 亮度 | 4500K</span>
+                <div class="trial-form-card">
+                    <form id="bookingForm">
+                        <div class="form-group">
+                            <label for="userName">您的姓名</label>
+                            <input type="text" id="userName" placeholder="例如：张先生 / 李女士" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userPhone">联系电话</label>
+                            <input type="tel" id="userPhone" placeholder="请输入11位手机号码" pattern="[0-9]{11}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fitnessGoal">健身主要目标</label>
+                            <select id="fitnessGoal">
+                                <option value="weight-loss">极速减脂 / 瘦身</option>
+                                <option value="muscle-gain">增肌塑形 / 力量提升</option>
+                                <option value="posture">体态矫正 / 运动康复</option>
+                                <option value="swimming">游泳 / 舒压放松</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large glow-effect full-width">
+                            🚀 立即免费领取通卡
                         </button>
-                        <button class="preset-btn" data-brightness="100" data-temp="6000" data-mode="warm-high">
-                            <span class="preset-icon">🔥</span>
-                            <span class="preset-name">强劲暖房</span>
-                            <span class="preset-desc">100% 全亮 | 6000K</span>
-                        </button>
-                        <button class="preset-btn" data-brightness="20" data-temp="3000" data-mode="night">
-                            <span class="preset-icon">🌙</span>
-                            <span class="preset-name">夜起微光</span>
-                            <span class="preset-desc">20% 柔光 | 3000K</span>
-                        </button>
-                        <button class="preset-btn" data-brightness="60" data-temp="3500" data-mode="dry">
-                            <span class="preset-icon">✨</span>
-                            <span class="preset-name">美妆护肤</span>
-                            <span class="preset-desc">60% 显色 | 3500K</span>
-                        </button>
-                    </div>
+                    </form>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Function Buttons Grid -->
-                <div class="card function-matrix">
-                    <h3>功能模式</h3>
-                    <div class="function-grid">
-                        <button class="func-card active" id="btnMainLight">
-                            <div class="func-icon light">💡</div>
-                            <div class="func-meta">
-                                <span class="func-name">主灯推光</span>
-                                <span class="func-sub" id="lightSubText">80% 开启中</span>
-                            </div>
-                        </button>
-                        <button class="func-card" id="btnWarm1">
-                            <div class="func-icon heat">🔥</div>
-                            <div class="func-meta">
-                                <span class="func-name">暖风一档</span>
-                                <span class="func-sub">低功率暖房</span>
-                            </div>
-                        </button>
-                        <button class="func-card" id="btnWarm2">
-                            <div class="func-icon heat-max">♨️</div>
-                            <div class="func-meta">
-                                <span class="func-name">暖风二档</span>
-                                <span class="func-sub">全速强暖</span>
-                            </div>
-                        </button>
-                        <button class="func-card" id="btnVent">
-                            <div class="func-icon vent">🌀</div>
-                            <div class="func-meta">
-                                <span class="func-name">换气循环</span>
-                                <span class="func-sub">清新空气</span>
-                            </div>
-                        </button>
-                        <button class="func-card" id="btnBlow">
-                            <div class="func-icon blow">💨</div>
-                            <div class="func-meta">
-                                <span class="func-name">凉风吹风</span>
-                                <span class="func-sub">夏日清凉</span>
-                            </div>
-                        </button>
-                        <button class="func-card" id="btnDry">
-                            <div class="func-icon dry">☀️</div>
-                            <div class="func-meta">
-                                <span class="func-name">智能除湿</span>
-                                <span class="func-sub">干燥浴室</span>
-                            </div>
-                        </button>
-                    </div>
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <div class="nav-logo">
+                    <span class="logo-bold">TITAN</span><span class="logo-highlight">FIT</span>
                 </div>
+                <p>TITAN FIT 致力于打造最硬核、最具未来感的智能健身空间。突破极限，成就更好的自己。</p>
+                <div class="social-links">
+                    <a href="#">微信公众号</a>
+                    <a href="#">小红书</a>
+                    <a href="#">抖音官方号</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>快速导航</h4>
+                <ul>
+                    <li><a href="#features">会所设施</a></li>
+                    <li><a href="#classes">特色团课</a></li>
+                    <li><a href="#trainers">私教团队</a></li>
+                    <li><a href="#pricing">卡种价格</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>营业时间 & 地址</h4>
+                <p>📍 旗舰店：市中心CBD泰坦大厦 1-3 层整栋</p>
+                <p>⏰ 营业时间：24 小时全天候开放</p>
+                <p>📞 贵宾热线：400-888-9999</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 TITAN FIT Club. All rights reserved. 泰坦极速健身 版权所有</p>
+            </div>
+        </div>
+    </footer>
 
-                <!-- Timer & Power Metrics -->
-                <div class="card metrics-card">
-                    <div class="metric-row">
-                        <div class="metric-info">
-                            <span class="m-label">定时关闭</span>
-                            <span class="m-val" id="timerReadout">已关</span>
-                        </div>
-                        <div class="timer-btns">
-                            <button class="timer-chip" data-min="15">15分钟</button>
-                            <button class="timer-chip" data-min="30">30分钟</button>
-                            <button class="timer-chip" data-min="45">45分钟</button>
-                            <button class="timer-chip cancel" id="btnCancelTimer">取消</button>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="power-row">
-                        <div class="p-item">
-                            <span class="p-lbl">实时功率</span>
-                            <span class="p-val" id="powerReadout">45 W</span>
-                        </div>
-                        <div class="p-item">
-                            <span class="p-lbl">今日已用电</span>
-                            <span class="p-val">0.32 kWh</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-card">
+            <div class="modal-icon">🎉</div>
+            <h3>预约成功！通卡已生成</h3>
+            <p>我们的专属健身顾问将在 10 分钟内与您电话确认体验时间，请保持手机畅通！</p>
+            <button class="btn btn-primary" id="closeModal">收到，太棒了！</button>
+        </div>
     </div>
 
     <script src="main.js"></script>
