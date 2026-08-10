@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能浴霸推光控制系统 | Lumina Bath Smart Light Controller</title>
+    <meta name="description" content="高端智能浴霸推光与无级调光系统，支持暖风、换气、吹风及2700K-6500K无级推光调色控制。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="app-background" id="ambientBg"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Lumina 极光浴霸</h1>
+                    <span class="status-badge" id="connStatus">
+                        <span class="pulse-dot"></span> 智能联机中
+                    </span>
+                </div>
+            </div>
+            <div class="environment-info">
+                <div class="env-item">
+                    <span class="env-label">浴室温度</span>
+                    <span class="env-val" id="tempDisplay">28°C</span>
+                </div>
+                <div class="env-item">
+                    <span class="env-label">浴室湿度</span>
+                    <span class="env-val" id="humidityDisplay">55%</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Visualizer (Simulated Bath Heater Device Panel) -->
+        <main class="main-content">
+            <section class="device-preview-card">
+                <div class="preview-header">
+                    <h2>浴霸设备状态视图</h2>
+                    <span class="mode-tag" id="activeModeTag">日常照明模式</span>
+                </div>
+
+                <div class="heater-unit" id="heaterUnit">
+                    <!-- Lighting Panel Surface -->
+                    <div class="light-surface" id="lightSurface">
+                        <div class="light-rays"></div>
+                        <div class="light-core" id="lightCore"></div>
+                    </div>
+                    <!-- Heating Coils & Air Vents Simulation -->
+                    <div class="vent-panel">
+                        <div class="vent-grill fan-vent" id="fanVent">
+                            <div class="fan-blade" id="fanBlade"></div>
+                        </div>
+                        <div class="heat-coils" id="heatCoils">
+                            <span class="coil"></span>
+                            <span class="coil"></span>
+                            <span class="coil"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Light Dimming Push Slider (推光控制核心区域) -->
+                <div class="push-light-section">
+                    <div class="section-title-row">
+                        <div class="title-with-icon">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>
+                            </svg>
+                            <h3>无级推光调光棒 (Push Dimmer)</h3>
+                        </div>
+                        <div class="readout">
+                            <span class="readout-val" id="brightnessReadout">80%</span>
+                        </div>
+                    </div>
+
+                    <!-- Touch Interactive Push Light Bar -->
+                    <div class="push-bar-container" id="pushBarTrack">
+                        <div class="push-bar-fill" id="pushBarFill"></div>
+                        <div class="push-bar-handle" id="pushBarHandle">
+                            <div class="handle-grip"></div>
+                            <span class="handle-tooltip" id="pushBarTooltip">80%</span>
+                        </div>
+                        <div class="push-bar-ticks">
+                            <span>0%</span>
+                            <span>25%</span>
+                            <span>50%</span>
+                            <span>75%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+
+                    <!-- Color Temp Slider (色温推杆 2700K - 6500K) -->
+                    <div class="color-temp-row">
+                        <span class="temp-tag warm">暖光 2700K</span>
+                        <input type="range" id="colorTempRange" min="2700" max="6500" value="4500" class="temp-slider">
+                        <span class="temp-tag cool">冷白光 6500K</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control Controls Panel -->
+            <section class="control-panel">
+                <!-- Preset Scenes Quick Access -->
+                <div class="card scene-presets">
+                    <h3>推光场景预设</h3>
+                    <div class="preset-grid">
+                        <button class="preset-btn active" data-brightness="80" data-temp="4500" data-mode="normal">
+                            <span class="preset-icon">☀️</span>
+                            <span class="preset-name">舒适洗浴</span>
+                            <span class="preset-desc">80% 亮度 | 4500K</span>
+                        </button>
+                        <button class="preset-btn" data-brightness="100" data-temp="6000" data-mode="warm-high">
+                            <span class="preset-icon">🔥</span>
+                            <span class="preset-name">强劲暖房</span>
+                            <span class="preset-desc">100% 全亮 | 6000K</span>
+                        </button>
+                        <button class="preset-btn" data-brightness="20" data-temp="3000" data-mode="night">
+                            <span class="preset-icon">🌙</span>
+                            <span class="preset-name">夜起微光</span>
+                            <span class="preset-desc">20% 柔光 | 3000K</span>
+                        </button>
+                        <button class="preset-btn" data-brightness="60" data-temp="3500" data-mode="dry">
+                            <span class="preset-icon">✨</span>
+                            <span class="preset-name">美妆护肤</span>
+                            <span class="preset-desc">60% 显色 | 3500K</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Function Buttons Grid -->
+                <div class="card function-matrix">
+                    <h3>功能模式</h3>
+                    <div class="function-grid">
+                        <button class="func-card active" id="btnMainLight">
+                            <div class="func-icon light">💡</div>
+                            <div class="func-meta">
+                                <span class="func-name">主灯推光</span>
+                                <span class="func-sub" id="lightSubText">80% 开启中</span>
+                            </div>
+                        </button>
+                        <button class="func-card" id="btnWarm1">
+                            <div class="func-icon heat">🔥</div>
+                            <div class="func-meta">
+                                <span class="func-name">暖风一档</span>
+                                <span class="func-sub">低功率暖房</span>
+                            </div>
+                        </button>
+                        <button class="func-card" id="btnWarm2">
+                            <div class="func-icon heat-max">♨️</div>
+                            <div class="func-meta">
+                                <span class="func-name">暖风二档</span>
+                                <span class="func-sub">全速强暖</span>
+                            </div>
+                        </button>
+                        <button class="func-card" id="btnVent">
+                            <div class="func-icon vent">🌀</div>
+                            <div class="func-meta">
+                                <span class="func-name">换气循环</span>
+                                <span class="func-sub">清新空气</span>
+                            </div>
+                        </button>
+                        <button class="func-card" id="btnBlow">
+                            <div class="func-icon blow">💨</div>
+                            <div class="func-meta">
+                                <span class="func-name">凉风吹风</span>
+                                <span class="func-sub">夏日清凉</span>
+                            </div>
+                        </button>
+                        <button class="func-card" id="btnDry">
+                            <div class="func-icon dry">☀️</div>
+                            <div class="func-meta">
+                                <span class="func-name">智能除湿</span>
+                                <span class="func-sub">干燥浴室</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Timer & Power Metrics -->
+                <div class="card metrics-card">
+                    <div class="metric-row">
+                        <div class="metric-info">
+                            <span class="m-label">定时关闭</span>
+                            <span class="m-val" id="timerReadout">已关</span>
+                        </div>
+                        <div class="timer-btns">
+                            <button class="timer-chip" data-min="15">15分钟</button>
+                            <button class="timer-chip" data-min="30">30分钟</button>
+                            <button class="timer-chip" data-min="45">45分钟</button>
+                            <button class="timer-chip cancel" id="btnCancelTimer">取消</button>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="power-row">
+                        <div class="p-item">
+                            <span class="p-lbl">实时功率</span>
+                            <span class="p-val" id="powerReadout">45 W</span>
+                        </div>
+                        <div class="p-item">
+                            <span class="p-lbl">今日已用电</span>
+                            <span class="p-val">0.32 kWh</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
