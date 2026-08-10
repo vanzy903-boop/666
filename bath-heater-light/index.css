@@ -1,0 +1,612 @@
+﻿/* ==========================================================================
+   Lumina Bath Smart Light Controller - Premium Dark Glassmorphism CSS
+   ========================================================================== */
+
+:root {
+    --bg-dark: #0b0f19;
+    --card-bg: rgba(22, 30, 46, 0.7);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --accent-gold: #f59e0b;
+    --accent-orange: #ff5722;
+    --accent-cyan: #00f2fe;
+    --accent-blue: #3b82f6;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+    --font-main: 'Outfit', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+    
+    /* Dynamic Push Light Variables */
+    --light-brightness: 0.8;
+    --light-temp-rgb: 255, 228, 196;
+    --glow-color: rgba(255, 200, 120, 0.4);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Ambient Animated Glow Background */
+.app-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background: radial-gradient(circle at 50% 20%, var(--glow-color) 0%, rgba(11, 15, 25, 0.95) 70%);
+    transition: background 0.4s ease;
+    pointer-events: none;
+}
+
+.app-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1120px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Header Section */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f59e0b, #ff5722);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.brand h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #ffffff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #10b981;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #10b981;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.environment-info {
+    display: flex;
+    gap: 24px;
+}
+
+.env-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.env-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.env-val {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Layout Grid */
+.main-content {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Device Preview Card */
+.device-preview-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.preview-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.mode-tag {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--accent-gold);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Simulated Bath Heater Device Panel */
+.heater-unit {
+    width: 100%;
+    height: 240px;
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    border-radius: var(--radius-md);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Lighting Surface */
+.light-surface {
+    background: rgba(var(--light-temp-rgb), var(--light-brightness));
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 calc(40px * var(--light-brightness)) rgba(var(--light-temp-rgb), 0.8);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.light-core {
+    width: 80%;
+    height: 80%;
+    border-radius: 8px;
+    background: #ffffff;
+    filter: blur(12px);
+    opacity: calc(0.3 + var(--light-brightness) * 0.7);
+    transition: opacity 0.2s ease;
+}
+
+/* Vent Panel */
+.vent-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vent-grill {
+    flex: 1;
+    background: #090d16;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Fan Blade Animation */
+.fan-blade {
+    width: 44px;
+    height: 44px;
+    border: 3px dashed var(--text-muted);
+    border-radius: 50%;
+    transition: border-color 0.3s;
+}
+
+.fan-blade.spinning {
+    border-color: var(--accent-cyan);
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Heating Coils Animation */
+.heat-coils {
+    flex: 1;
+    background: #090d16;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.coil {
+    width: 14px;
+    height: 70%;
+    background: #1e293b;
+    border-radius: 7px;
+    transition: all 0.4s ease;
+}
+
+.heat-coils.glowing .coil {
+    background: linear-gradient(180deg, #ff3838, #ff8c00);
+    box-shadow: 0 0 15px #ff4500, 0 0 30px #ff0000;
+    animation: coilPulse 1.5s infinite alternate;
+}
+
+@keyframes coilPulse {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Push Light Bar Section (推光核心区域) */
+.push-light-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-gold);
+}
+
+.title-with-icon h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.readout-val {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+/* Interactive Touch Bar Container */
+.push-bar-container {
+    width: 100%;
+    height: 56px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 28px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.push-bar-fill {
+    height: 100%;
+    width: 80%;
+    background: linear-gradient(90deg, #f59e0b, #fef08a);
+    border-radius: 28px;
+    transition: width 0.05s ease-out, background 0.3s;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+}
+
+.push-bar-handle {
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: left 0.05s ease-out;
+}
+
+.handle-grip {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+}
+
+.push-bar-ticks {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 16px 0;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Color Temp Slider */
+.color-temp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.temp-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+.temp-tag.warm { color: #f97316; }
+.temp-tag.cool { color: #38bdf8; }
+
+.temp-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #ff9800, #fff5cc, #64b5f6);
+    outline: none;
+}
+
+.temp-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    border: 2px solid #0f172a;
+}
+
+/* Control Panel Section */
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+/* Preset Grid */
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.preset-btn {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+}
+
+.preset-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.preset-btn.active {
+    border-color: var(--accent-gold);
+    background: rgba(245, 158, 11, 0.12);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+}
+
+.preset-icon { font-size: 1.2rem; }
+.preset-name { font-size: 0.9rem; font-weight: 600; }
+.preset-desc { font-size: 0.75rem; color: var(--text-muted); }
+
+/* Function Matrix */
+.function-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+@media (max-width: 550px) {
+    .function-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.func-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    color: var(--text-primary);
+}
+
+.func-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.func-card.active {
+    background: linear-gradient(145deg, rgba(245, 158, 11, 0.2), rgba(255, 87, 34, 0.1));
+    border-color: var(--accent-gold);
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+}
+
+.func-icon {
+    font-size: 1.6rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.func-meta { display: flex; flex-direction: column; gap: 2px; }
+.func-name { font-size: 0.85rem; font-weight: 600; }
+.func-sub { font-size: 0.7rem; color: var(--text-muted); }
+
+/* Metrics & Timer */
+.metrics-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.metric-info { display: flex; flex-direction: column; }
+.m-label { font-size: 0.75rem; color: var(--text-muted); }
+.m-val { font-size: 1rem; font-weight: 600; color: var(--accent-gold); }
+
+.timer-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.timer-chip {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    border-radius: 16px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.timer-chip:hover, .timer-chip.active {
+    background: var(--accent-gold);
+    color: #000;
+    font-weight: 600;
+}
+
+.timer-chip.cancel {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.power-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.p-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.p-lbl { font-size: 0.75rem; color: var(--text-muted); }
+.p-val { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); }
