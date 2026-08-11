@@ -1,83 +1,49 @@
 /* ==========================================================================
-   365-Day Money Savings Challenge - JavaScript Logic Engine
+   Luxury Wealth Vault & Savings Challenge - Enhanced Engine
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- State Storage Key ---
-    const STORAGE_KEY = 'titan_savings_tracker_v1';
+    const STORAGE_KEY = 'titan_wealth_vault_v2';
 
-    // Default 365 Step Challenge Data (Day 1 = ¥1, Day 2 = ¥2 ... Day 365 = ¥365)
     let state = {
-        planType: '365-step',
-        totalTarget: 66795,
-        totalDays: 365,
-        gridData: [], // Array of { id, dayLabel, amount, done: boolean }
-        lastCheckDate: null,
+        targetGoal: 10000,
+        targetName: '我的第一桶金 🚀',
+        totalSaved: 0,
+        history: [], // Array of { id, amount, timeStr, note }
+        cells: [],   // 365 cells: { id, amount, done }
+        lastDepositDate: null,
         streakDays: 0
     };
 
     // --- DOM Elements ---
-    const planSelect = document.getElementById('planSelect');
-    const gridBoard = document.getElementById('gridBoard');
-    const savedAmountEl = document.getElementById('savedAmount');
-    const progressPercentEl = document.getElementById('progressPercent');
-    const progressBarFill = document.getElementById('progressBarFill');
-    const checkedCountEl = document.getElementById('checkedCount');
-    const targetTotalSub = document.getElementById('targetTotalSub');
-    const daysLeftSub = document.getElementById('daysLeftSub');
+    const customTargetInput = document.getElementById('customTargetInput');
+    const targetNameInput = document.getElementById('targetNameInput');
+    const customDepositForm = document.getElementById('customDepositForm');
+    const inputDepositAmount = document.getElementById('inputDepositAmount');
+    const presetChips = document.querySelectorAll('.preset-chip');
+    const historyList = document.getElementById('historyList');
+    const btnClearHistory = document.getElementById('btnClearHistory');
+
+    // Overview Stats
+    const percentText = document.getElementById('percentText');
+    const ringCircle = document.getElementById('ringCircle');
+    const savedTotalVal = document.getElementById('savedTotalVal');
+    const remainingVal = document.getElementById('remainingVal');
+    const depositTimes = document.getElementById('depositTimes');
     const streakDaysEl = document.getElementById('streakDays');
-    
-    // Chips & Buttons
-    const countAllEl = document.getElementById('countAll');
-    const countPendingEl = document.getElementById('countPending');
-    const countDoneEl = document.getElementById('countDone');
-    const chips = document.querySelectorAll('.chip');
-    const btnRandomDeposit = document.getElementById('btnRandomDeposit');
-    const btnResetData = document.getElementById('btnResetData');
+    const maxDepositEl = document.getElementById('maxDeposit');
 
-    // Modal
-    const celebrateModal = document.getElementById('celebrateModal');
-    const modalDepositVal = document.getElementById('modalDepositVal');
-    const closeModal = document.getElementById('closeModal');
-
+    // Grid Board Elements
+    const gridBoard = document.getElementById('gridBoard');
+    const filterChips = document.querySelectorAll('.chip');
     let currentFilter = 'all';
 
-    // --- Generate Plan Preset Grid Data ---
-    function generatePlanData(type) {
-        let grid = [];
-        let total = 0;
-        let days = 365;
-
-        if (type === '365-step') {
-            days = 365;
-            for (let i = 1; i <= 365; i++) {
-                grid.push({ id: i, dayLabel: `第${i}天`, amount: i, done: false });
-                total += i;
-            }
-        } else if (type === '100-hundred') {
-            days = 100;
-            for (let i = 1; i <= 100; i++) {
-                grid.push({ id: i, dayLabel: `第${i}天`, amount: 100, done: false });
-                total += 100;
-            }
-        } else if (type === '52-week') {
-            days = 52;
-            for (let i = 1; i <= 52; i++) {
-                let amt = i * 10;
-                grid.push({ id: i, dayLabel: `第${i}周`, amount: amt, done: false });
-                total += amt;
-            }
-        } else if (type === 'custom') {
-            days = 100;
-            for (let i = 1; i <= 100; i++) {
-                let amt = Math.floor(Math.random() * 50) + 10; // ¥10 - ¥60
-                grid.push({ id: i, dayLabel: `卡片${i}`, amount: amt, done: false });
-                total += amt;
-            }
-        }
-
-        return { type, total, days, grid };
-    }
+    // Cell Modal Elements
+    const cellModal = document.getElementById('cellModal');
+    const cellModalInput = document.getElementById('cellModalInput');
+    const btnCancelCellModal = document.getElementById('btnCancelCellModal');
+    const btnConfirmCellModal = document.getElementById('btnConfirmCellModal');
+    let activeCellId = null;
 
     // --- Save & Load LocalStorage ---
     function saveState() {
@@ -88,152 +54,221 @@ document.addEventListener('DOMContentLoaded', () => {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
             try {
-                const parsed = JSON.parse(saved);
-                state = parsed;
-                planSelect.value = state.planType;
+                state = JSON.parse(saved);
             } catch (e) {
-                console.error("Failed to parse saved state", e);
-                initNewPlan('365-step');
+                initDefaultState();
             }
         } else {
-            initNewPlan('365-step');
+            initDefaultState();
         }
+
+        // Apply loaded settings to inputs
+        customTargetInput.value = state.targetGoal;
+        targetNameInput.value = state.targetName;
     }
 
-    function initNewPlan(type) {
-        const data = generatePlanData(type);
-        state.planType = type;
-        state.totalTarget = data.total;
-        state.totalDays = data.days;
-        state.gridData = data.grid;
-        state.lastCheckDate = null;
-        state.streakDays = 0;
+    function initDefaultState() {
+        state = {
+            targetGoal: 10000,
+            targetName: '我的第一桶金 🚀',
+            totalSaved: 0,
+            history: [],
+            cells: Array.from({ length: 365 }, (_, i) => ({
+                id: i + 1,
+                amount: i + 1, // Default 1 to 365
+                done: false
+            })),
+            lastDepositDate: null,
+            streakDays: 0
+        };
         saveState();
     }
 
-    // --- Render Grid Board ---
-    function renderBoard() {
-        gridBoard.innerHTML = '';
+    // --- Core Money Deposit Engine ---
+    function addDeposit(amount, note = '零钱存入') {
+        const numAmt = parseFloat(amount);
+        if (isNaN(numAmt) || numAmt <= 0) return;
 
-        const filtered = state.gridData.filter(item => {
-            if (currentFilter === 'pending') return !item.done;
-            if (currentFilter === 'done') return item.done;
-            return true;
+        const now = new Date();
+        const timeStr = `${now.getMonth() + 1}月${now.getDate()}日 ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+        state.totalSaved += numAmt;
+        state.history.unshift({
+            id: Date.now(),
+            amount: numAmt,
+            timeStr: timeStr,
+            note: note
         });
 
-        filtered.forEach(item => {
-            const cell = document.createElement('div');
-            cell.className = `grid-cell ${item.done ? 'done' : ''}`;
-            cell.dataset.id = item.id;
-
-            cell.innerHTML = `
-                <span class="cell-day">${item.dayLabel}</span>
-                <span class="cell-val">${item.done ? '✓' : `¥${item.amount}`}</span>
-                ${item.done ? `<span class="cell-icon">已存¥${item.amount}</span>` : ''}
-            `;
-
-            cell.addEventListener('click', () => toggleDeposit(item.id));
-            gridBoard.appendChild(cell);
-        });
-
-        updateDashboard();
-    }
-
-    // --- Update Dashboard Stats ---
-    function updateDashboard() {
-        const doneItems = state.gridData.filter(i => i.done);
-        const currentSaved = doneItems.reduce((sum, i) => sum + i.amount, 0);
-        const doneCount = doneItems.length;
-        const percent = Math.round((currentSaved / state.totalTarget) * 100) || 0;
-
-        savedAmountEl.textContent = currentSaved.toLocaleString();
-        targetTotalSub.textContent = `目标金额: ¥${state.totalTarget.toLocaleString()}`;
-        
-        progressPercentEl.textContent = percent;
-        progressBarFill.style.width = `${percent}%`;
-
-        checkedCountEl.textContent = doneCount;
-        daysLeftSub.textContent = `还需打卡: ${state.totalDays - doneCount} 天`;
-
-        streakDaysEl.textContent = state.streakDays;
-
-        // Update Filter Chip Counter Tags
-        countAllEl.textContent = state.gridData.length;
-        countPendingEl.textContent = state.gridData.length - doneCount;
-        countDoneEl.textContent = doneCount;
-    }
-
-    // --- Toggle Deposit Cell ---
-    function toggleDeposit(id) {
-        const item = state.gridData.find(i => i.id === id);
-        if (!item) return;
-
-        item.done = !item.done;
-
-        if (item.done) {
-            // Check streak
-            const today = new Date().toDateString();
-            if (state.lastCheckDate !== today) {
-                state.streakDays += 1;
-                state.lastCheckDate = today;
-            }
-            // Show celebration modal
-            modalDepositVal.textContent = item.amount;
-            celebrateModal.classList.add('active');
+        // Update streak
+        const todayStr = now.toDateString();
+        if (state.lastDepositDate !== todayStr) {
+            state.streakDays += 1;
+            state.lastDepositDate = todayStr;
         }
 
         saveState();
-        renderBoard();
+        updateUI();
     }
 
-    // --- Random Deposit Picker ---
-    btnRandomDeposit.addEventListener('click', () => {
-        const pending = state.gridData.filter(i => !i.done);
-        if (pending.length === 0) {
-            alert('🎉 恭喜！所有格子均已存满，任务全面达成！');
+    // --- Update UI & Stats ---
+    function updateUI() {
+        // Compute metrics
+        const total = state.totalSaved;
+        const target = state.targetGoal;
+        const remaining = Math.max(0, target - total);
+        const percent = Math.min(100, Math.round((total / target) * 100)) || 0;
+
+        savedTotalVal.textContent = total.toLocaleString();
+        remainingVal.textContent = remaining.toLocaleString();
+        percentText.textContent = `${percent}%`;
+
+        // Update Circular Ring SVG (Dashoffset 471)
+        const circumference = 471;
+        const offset = circumference - (percent / 100) * circumference;
+        ringCircle.style.strokeDashoffset = offset;
+
+        // Update Mini Stats
+        depositTimes.textContent = `${state.history.length} 笔`;
+        streakDaysEl.textContent = `${state.streakDays} 天 🔥`;
+        const maxAmt = state.history.length > 0 ? Math.max(...state.history.map(h => h.amount)) : 0;
+        maxDepositEl.textContent = `¥${maxAmt.toLocaleString()}`;
+
+        // Render History List
+        renderHistory();
+
+        // Render Grid
+        renderGrid();
+    }
+
+    function renderHistory() {
+        historyList.innerHTML = '';
+        if (state.history.length === 0) {
+            historyList.innerHTML = '<li class="history-item" style="justify-content:center; color:#64748b;">暂无存钱记录，快存入第一笔吧！</li>';
             return;
         }
 
-        const randomIndex = Math.floor(Math.random() * pending.length);
-        const randomItem = pending[randomIndex];
-        toggleDeposit(randomItem.id);
+        state.history.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'history-item';
+            li.innerHTML = `
+                <div>
+                    <div><strong>${item.note}</strong></div>
+                    <div class="item-time">${item.timeStr}</div>
+                </div>
+                <div class="item-val">+ ¥${item.amount.toLocaleString()}</div>
+            `;
+            historyList.appendChild(li);
+        });
+    }
+
+    function renderGrid() {
+        gridBoard.innerHTML = '';
+
+        const filtered = state.cells.filter(cell => {
+            if (currentFilter === 'pending') return !cell.done;
+            if (currentFilter === 'done') return cell.done;
+            return true;
+        });
+
+        filtered.forEach(cell => {
+            const el = document.createElement('div');
+            el.className = `grid-cell ${cell.done ? 'done' : ''}`;
+            el.innerHTML = `
+                <span class="cell-day">第${cell.id}天</span>
+                <span class="cell-val">${cell.done ? '✓' : `¥${cell.amount}`}</span>
+            `;
+
+            el.addEventListener('click', () => {
+                if (cell.done) {
+                    // Toggle off if already done
+                    cell.done = false;
+                    state.totalSaved = Math.max(0, state.totalSaved - cell.amount);
+                    saveState();
+                    updateUI();
+                } else {
+                    // Open custom amount modal for cell
+                    activeCellId = cell.id;
+                    cellModalInput.value = cell.amount;
+                    cellModal.classList.add('active');
+                }
+            });
+
+            gridBoard.appendChild(el);
+        });
+    }
+
+    // --- Form & Preset Event Listeners ---
+    customDepositForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const val = parseFloat(inputDepositAmount.value);
+        if (val > 0) {
+            addDeposit(val, '自定义自由存入');
+            inputDepositAmount.value = '';
+        }
     });
 
-    // --- Filter Chips ---
-    chips.forEach(chip => {
+    presetChips.forEach(chip => {
         chip.addEventListener('click', () => {
-            chips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            currentFilter = chip.dataset.filter;
-            renderBoard();
+            const val = parseFloat(chip.dataset.val);
+            addDeposit(val, `快捷加码 +¥${val}`);
         });
     });
 
-    // --- Reset Plan Data ---
-    btnResetData.addEventListener('click', () => {
-        if (confirm('确定要重新开始存钱计划吗？之前的数据将被清空。')) {
-            initNewPlan(state.planType);
-            renderBoard();
+    customTargetInput.addEventListener('change', (e) => {
+        const val = parseFloat(e.target.value);
+        if (val > 0) {
+            state.targetGoal = val;
+            saveState();
+            updateUI();
         }
     });
 
-    // --- Plan Select Change Listener ---
-    planSelect.addEventListener('change', (e) => {
-        if (confirm('切换存钱模式将初始化新的打卡格子，是否继续？')) {
-            initNewPlan(e.target.value);
-            renderBoard();
-        } else {
-            planSelect.value = state.planType;
+    targetNameInput.addEventListener('change', (e) => {
+        state.targetName = e.target.value;
+        saveState();
+    });
+
+    btnClearHistory.addEventListener('click', () => {
+        if (confirm('确定要清空流水记录吗？（总金额将清零）')) {
+            state.totalSaved = 0;
+            state.history = [];
+            state.cells.forEach(c => c.done = false);
+            saveState();
+            updateUI();
         }
     });
 
-    // Modal Close
-    closeModal.addEventListener('click', () => celebrateModal.classList.remove('active'));
-    celebrateModal.addEventListener('click', (e) => {
-        if (e.target === celebrateModal) celebrateModal.classList.remove('active');
+    // Modal Event Handlers
+    btnConfirmCellModal.addEventListener('click', () => {
+        const val = parseFloat(cellModalInput.value);
+        if (val > 0 && activeCellId) {
+            const cell = state.cells.find(c => c.id === activeCellId);
+            if (cell) {
+                cell.amount = val;
+                cell.done = true;
+                addDeposit(val, `格子打卡 (第${cell.id}天)`);
+            }
+        }
+        cellModal.classList.remove('active');
     });
 
-    // --- Initialize ---
+    btnCancelCellModal.addEventListener('click', () => cellModal.classList.remove('active'));
+    cellModal.addEventListener('click', (e) => {
+        if (e.target === cellModal) cellModal.classList.remove('active');
+    });
+
+    // Filter Chips
+    filterChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            filterChips.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            currentFilter = chip.textContent.includes('未完成') ? 'pending' : (chip.textContent.includes('已存入') ? 'done' : 'all');
+            renderGrid();
+        });
+    });
+
+    // Initial Engine Start
     loadState();
-    renderBoard();
+    updateUI();
 });
