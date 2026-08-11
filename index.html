@@ -15,6 +15,7 @@
             --accent-gold: #f59e0b;
             --accent-red: #ff3b00;
             --accent-green: #10b981;
+            --accent-cyan: #00f2fe;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -31,7 +32,7 @@
         }
         .hub-container {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1140px;
             display: flex;
             flex-direction: column;
             gap: 32px;
@@ -48,14 +49,14 @@
         .header p { color: var(--text-muted); font-size: 1rem; }
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 24px;
         }
         .project-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 32px;
+            padding: 28px;
             text-decoration: none;
             color: var(--text-main);
             display: flex;
@@ -70,9 +71,9 @@
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
         }
         .card-icon {
-            font-size: 2.8rem;
-            width: 64px;
-            height: 64px;
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
             border-radius: 16px;
             display: flex;
             justify-content: center;
@@ -81,14 +82,15 @@
         .icon-bath { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); }
         .icon-gym { background: rgba(255, 59, 0, 0.15); border: 1px solid rgba(255, 59, 0, 0.3); }
         .icon-save { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .icon-weight { background: rgba(0, 242, 254, 0.15); border: 1px solid rgba(0, 242, 254, 0.3); }
 
-        .project-card h2 { font-size: 1.3rem; font-weight: 700; }
-        .project-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+        .project-card h2 { font-size: 1.2rem; font-weight: 700; }
+        .project-card p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
 
         .btn-enter {
             margin-top: auto;
             align-self: flex-start;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 30px;
             font-size: 0.85rem;
             font-weight: 700;
@@ -99,6 +101,7 @@
         .bath-btn { background: var(--accent-gold); color: #000; }
         .gym-btn { background: var(--accent-red); color: #fff; }
         .save-btn { background: var(--accent-green); color: #000; }
+        .weight-btn { background: var(--accent-cyan); color: #000; }
 
         .github-link {
             text-align: center;
@@ -113,7 +116,7 @@
     <div class="hub-container">
         <div class="header">
             <h1>🚀 GitHub 项目总导航主页 (Hub)</h1>
-            <p>包含已生成的全部 3 个网页项目，点击下方卡片即可开启预览</p>
+            <p>包含已生成的全部 4 个网页项目，点击下方卡片即可开启预览</p>
         </div>
 
         <div class="projects-grid">
@@ -122,9 +125,9 @@
                 <div class="card-icon icon-bath">💡</div>
                 <div>
                     <h2>Lumina 智能浴霸无级推光控制系统</h2>
-                    <p>高端智能浴霸推光与无级调光系统，支持 0%-100% 触控无级推光调光棒、2700K-6500K 暖光/冷白光无级色温调节及暖风换气拟真 panel。</p>
+                    <p>高端智能浴霸推光与无级调光系统，支持 0%-100% 触控无级推光调光棒及暖风换气拟真 panel。</p>
                 </div>
-                <span class="btn-enter bath-btn">打开浴霸推光项目 ➔</span>
+                <span class="btn-enter bath-btn">打开浴霸项目 ➔</span>
             </a>
 
             <!-- Project 2: Gym Website -->
@@ -132,19 +135,29 @@
                 <div class="card-icon icon-gym">🏋️‍♂️</div>
                 <div>
                     <h2>TITAN FIT 泰坦极速健身宣传官网</h2>
-                    <p>24H 智能全时极速健身会所宣传官网。包含硬核设施展示、高能特色团课、金牌私教团队、会员卡种选购及 3天免费通卡在线预约系统。</p>
+                    <p>24H 智能全时极速健身会所宣传官网。包含硬核设施展示、特色团课、金牌私教及预约系统。</p>
                 </div>
-                <span class="btn-enter gym-btn">打开健身房宣传官网 ➔</span>
+                <span class="btn-enter gym-btn">打开健身房官网 ➔</span>
             </a>
 
             <!-- Project 3: Savings Tracker -->
             <a href="savings-tracker/index.html" class="project-card">
                 <div class="card-icon icon-save">💰</div>
                 <div>
-                    <h2>365天/N天存钱计划打卡系统</h2>
-                    <p>极简高颜值存钱打卡系统。支持阶梯存钱 (省下¥66,795)、100天百元挑战及自定义目标，内置随机打卡与数据自动保存。</p>
+                    <h2>智能财富金库 & 存钱打卡系统</h2>
+                    <p>支持自定义自由存入任意金额、快捷加码、365天存钱格打卡、流水账本及圆环进度条。</p>
                 </div>
-                <span class="btn-enter save-btn">打开存钱打卡项目 ➔</span>
+                <span class="btn-enter save-btn">打开存钱金库 ➔</span>
+            </a>
+
+            <!-- Project 4: Weight Tracker -->
+            <a href="weight-tracker/index.html" class="project-card">
+                <div class="card-icon icon-weight">⚖️</div>
+                <div>
+                    <h2>FitTrack 每日体重打卡系统</h2>
+                    <p>每日体重/体脂记录、BMI 健康评级、智能目标差距计算及动态 Canvas 体重变化趋势曲线图。</p>
+                </div>
+                <span class="btn-enter weight-btn">打开体重打卡 ➔</span>
             </a>
         </div>
 

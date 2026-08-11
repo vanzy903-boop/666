@@ -1,0 +1,361 @@
+/* ==========================================================================
+   FitTrack Daily Weight Tracker - Enhanced Fitness UI CSS
+   ========================================================================== */
+
+:root {
+    --bg-dark: #080b11;
+    --card-bg: rgba(18, 24, 38, 0.75);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --accent-cyan: #00f2fe;
+    --accent-cyan-gradient: linear-gradient(135deg, #00f2fe, #4facfe);
+    --accent-green: #10b981;
+    --accent-purple: #8b5cf6;
+    --accent-orange: #ff7700;
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+    --radius-lg: 24px;
+    --radius-md: 14px;
+    --font-main: 'Outfit', 'Noto Sans SC', sans-serif;
+    --shadow-cyan: 0 10px 30px rgba(0, 242, 254, 0.3);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    padding: 30px 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Ambient Background Glow */
+.ambient-glow {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.12) 0%, transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.app-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Header */
+.app-header {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(16px);
+    flex-wrap: wrap;
+    gap: 20px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    background: var(--accent-cyan-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: var(--shadow-cyan);
+}
+
+.brand h1 {
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, #ffffff, #00f2fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle { color: var(--text-muted); font-size: 0.85rem; }
+
+.goal-bar {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.goal-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.goal-input-group .label { font-size: 0.75rem; color: var(--text-muted); }
+
+.input-sm {
+    width: 110px;
+    background: rgba(10, 14, 22, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--accent-cyan);
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-sm:focus { border-color: var(--accent-cyan); }
+
+/* Metrics Dashboard Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.metric-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.metric-card.cyan { border-color: rgba(0, 242, 254, 0.3); }
+.metric-card.green { border-color: rgba(16, 185, 129, 0.3); }
+.metric-card.purple { border-color: rgba(139, 92, 246, 0.3); }
+.metric-card.orange { border-color: rgba(255, 119, 0, 0.3); }
+
+.m-label { font-size: 0.85rem; color: var(--text-muted); }
+.m-val { font-size: 2.2rem; font-weight: 900; line-height: 1; }
+.m-val .unit { font-size: 1rem; color: var(--text-muted); margin-left: 4px; }
+
+.metric-card.cyan .m-val { color: var(--accent-cyan); }
+.metric-card.green .m-val { color: var(--accent-green); }
+.metric-card.purple .m-val { color: var(--accent-purple); }
+.metric-card.orange .m-val { color: var(--accent-orange); }
+
+.m-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
+.m-badge {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Workspace Grid */
+.workspace-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .workspace-grid { grid-template-columns: 1fr; }
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-header h2 { font-size: 1.2rem; font-weight: 800; }
+.date-tag { font-size: 0.8rem; color: var(--accent-cyan); font-weight: 700; }
+
+/* Weight Form */
+.weight-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(10, 14, 22, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+}
+
+.btn {
+    padding: 14px 24px;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-cyan-gradient {
+    background: var(--accent-cyan-gradient);
+    color: #000000;
+    box-shadow: var(--shadow-cyan);
+}
+
+.btn-cyan-gradient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 242, 254, 0.5);
+}
+
+.full-width { width: 100%; }
+
+/* History List */
+.history-container {
+    margin-top: 24px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.history-header h3 { font-size: 0.95rem; color: var(--text-muted); }
+.btn-text.danger { background: none; border: none; color: #ef4444; font-size: 0.8rem; cursor: pointer; }
+
+.history-list {
+    list-style: none;
+    max-height: 220px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-item {
+    background: rgba(10, 14, 22, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.history-item .h-weight {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--accent-cyan);
+}
+
+.history-item .h-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.history-item .h-date { font-size: 0.75rem; color: var(--text-muted); }
+.history-item .h-note { font-size: 0.75rem; color: var(--text-primary); }
+
+/* Chart Section */
+.chart-filter { display: flex; gap: 6px; }
+
+.filter-chip {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.filter-chip.active { background: rgba(0, 242, 254, 0.15); color: var(--accent-cyan); border-color: rgba(0, 242, 254, 0.3); }
+
+.chart-canvas-wrapper {
+    width: 100%;
+    height: 260px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(10, 14, 22, 0.6);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 12px;
+}
+
+#weightChart { width: 100%; height: 100%; }
+
+/* BMI Reference Bar */
+.bmi-reference-bar {
+    display: flex;
+    gap: 10px;
+    font-size: 0.75rem;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.ref-title { color: var(--text-muted); }
+.ref-item.blue { color: #38bdf8; }
+.ref-item.green { color: #34d399; }
+.ref-item.yellow { color: #fbbf24; }
+.ref-item.red { color: #f87171; }

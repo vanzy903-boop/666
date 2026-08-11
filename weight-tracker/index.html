@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack 每日体重打卡与健康追踪 | 智能身材管理</title>
+    <meta name="description" content="极简高颜值每日体重记录与 BMI 曲线追踪系统。支持记录每日体重、体脂率、饮食备注，内置动态趋势图表与身材健康分析。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-glow"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon glow-cyan">⚖️</div>
+                <div>
+                    <h1>FitTrack 体重打卡</h1>
+                    <p class="subtitle">每日记录 · 遇见更自律的自己</p>
+                </div>
+            </div>
+
+            <!-- Target Goal Bar -->
+            <div class="goal-bar">
+                <div class="goal-input-group">
+                    <span class="label">身高 (cm)</span>
+                    <input type="number" id="userHeight" value="172" min="100" max="230" class="input-sm">
+                </div>
+                <div class="goal-input-group">
+                    <span class="label">目标体重 (kg)</span>
+                    <input type="number" id="targetWeight" value="60.0" step="0.1" min="30" max="200" class="input-sm">
+                </div>
+            </div>
+        </header>
+
+        <!-- Metrics Dashboard -->
+        <section class="dashboard-section">
+            <div class="metrics-grid">
+                <div class="metric-card cyan">
+                    <span class="m-label">最新体重</span>
+                    <div class="m-val"><span id="latestWeight">--</span> <span class="unit">kg</span></div>
+                    <span class="m-sub" id="weightDiffSub">相比初始: --</span>
+                </div>
+                <div class="metric-card green">
+                    <span class="m-label">BMI 指数</span>
+                    <div class="m-val"><span id="bmiValue">--</span></div>
+                    <span class="m-badge" id="bmiStatusBadge">标准范围</span>
+                </div>
+                <div class="metric-card purple">
+                    <span class="m-label">距目标体重</span>
+                    <div class="m-val"><span id="toTargetWeight">--</span> <span class="unit">kg</span></div>
+                    <span class="m-sub" id="targetProgressSub">完成度: 0%</span>
+                </div>
+                <div class="metric-card orange">
+                    <span class="m-label">连续打卡</span>
+                    <div class="m-val"><span id="streakCount">0</span> <span class="unit">天 🔥</span></div>
+                    <span class="m-sub">保持良好作息</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Workspace Grid -->
+        <main class="workspace-grid">
+            <!-- Left: Check-in Form & Log Feed -->
+            <section class="card input-card">
+                <div class="card-header">
+                    <h2>📝 每日体重打卡</h2>
+                    <span class="date-tag" id="currentDateTag">2026-08-11</span>
+                </div>
+
+                <form id="weightForm" class="weight-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputWeight">今日体重 (kg) *</label>
+                            <input type="number" id="inputWeight" step="0.1" min="20" max="250" placeholder="例如: 65.5" required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputBodyFat">体脂率 (%) [选填]</label>
+                            <input type="number" id="inputBodyFat" step="0.1" min="3" max="60" placeholder="例如: 18.5">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputNote">备注 / 饮食运动</label>
+                        <input type="text" id="inputNote" placeholder="如：早起空腹 / 跑步5公里 / 少油少盐">
+                    </div>
+
+                    <button type="submit" class="btn btn-cyan-gradient full-width glow-btn">
+                        🚀 确认打卡保存
+                    </button>
+                </form>
+
+                <!-- History Log Feed -->
+                <div class="history-container">
+                    <div class="history-header">
+                        <h3>📋 体重打卡历史</h3>
+                        <button class="btn-text danger" id="btnClearLogs">清空记录</button>
+                    </div>
+                    <ul class="history-list" id="historyList">
+                        <!-- Dynamic History Rows -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Right: Interactive SVG Weight Trend Chart -->
+            <section class="card chart-card">
+                <div class="card-header">
+                    <h2>📈 体重变化趋势图</h2>
+                    <div class="chart-filter">
+                        <button class="filter-chip active" data-days="7">近 7 天</button>
+                        <button class="filter-chip" data-days="30">近 30 天</button>
+                        <button class="filter-chip" data-days="all">全部</button>
+                    </div>
+                </div>
+
+                <div class="chart-canvas-wrapper">
+                    <canvas id="weightChart" width="540" height="260"></canvas>
+                </div>
+
+                <!-- BMI Reference Legend Bar -->
+                <div class="bmi-reference-bar">
+                    <span class="ref-title">BMI 健康区间：</span>
+                    <span class="ref-item blue">偏瘦 (<18.5)</span>
+                    <span class="ref-item green">正常 (18.5~23.9)</span>
+                    <span class="ref-item yellow">偏胖 (24~27.9)</span>
+                    <span class="ref-item red">肥胖 (≥28)</span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
