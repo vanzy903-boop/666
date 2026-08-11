@@ -14,6 +14,7 @@
             --border-color: rgba(255, 255, 255, 0.1);
             --accent-gold: #f59e0b;
             --accent-red: #ff3b00;
+            --accent-green: #10b981;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -30,14 +31,12 @@
         }
         .hub-container {
             width: 100%;
-            max-width: 960px;
+            max-width: 1100px;
             display: flex;
             flex-direction: column;
             gap: 32px;
         }
-        .header {
-            text-align: center;
-        }
+        .header { text-align: center; }
         .header h1 {
             font-size: 2.2rem;
             font-weight: 800;
@@ -49,7 +48,7 @@
         .header p { color: var(--text-muted); font-size: 1rem; }
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 24px;
         }
         .project-card {
@@ -81,6 +80,7 @@
         }
         .icon-bath { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); }
         .icon-gym { background: rgba(255, 59, 0, 0.15); border: 1px solid rgba(255, 59, 0, 0.3); }
+        .icon-save { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); }
 
         .project-card h2 { font-size: 1.3rem; font-weight: 700; }
         .project-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
@@ -98,6 +98,7 @@
         }
         .bath-btn { background: var(--accent-gold); color: #000; }
         .gym-btn { background: var(--accent-red); color: #fff; }
+        .save-btn { background: var(--accent-green); color: #000; }
 
         .github-link {
             text-align: center;
@@ -111,8 +112,8 @@
 <body>
     <div class="hub-container">
         <div class="header">
-            <h1>🚀 GitHub 项目主导航页 (Hub)</h1>
-            <p>包含已生成的全部 2 个网页项目，点击下方卡片即可开启预览</p>
+            <h1>🚀 GitHub 项目总导航主页 (Hub)</h1>
+            <p>包含已生成的全部 3 个网页项目，点击下方卡片即可开启预览</p>
         </div>
 
         <div class="projects-grid">
@@ -134,6 +135,16 @@
                     <p>24H 智能全时极速健身会所宣传官网。包含硬核设施展示、高能特色团课、金牌私教团队、会员卡种选购及 3天免费通卡在线预约系统。</p>
                 </div>
                 <span class="btn-enter gym-btn">打开健身房宣传官网 ➔</span>
+            </a>
+
+            <!-- Project 3: Savings Tracker -->
+            <a href="savings-tracker/index.html" class="project-card">
+                <div class="card-icon icon-save">💰</div>
+                <div>
+                    <h2>365天/N天存钱计划打卡系统</h2>
+                    <p>极简高颜值存钱打卡系统。支持阶梯存钱 (省下¥66,795)、100天百元挑战及自定义目标，内置随机打卡与数据自动保存。</p>
+                </div>
+                <span class="btn-enter save-btn">打开存钱打卡项目 ➔</span>
             </a>
         </div>
 

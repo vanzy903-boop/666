@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>365天存钱计划挑战 | 智能资产打卡系统</title>
+    <meta name="description" content="极简高颜值 365 天存钱计划打卡系统。支持阶梯存钱、100天百元挑战与自定义目标，帮助您轻松培养存钱习惯，积少成多实现财富目标！">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header & Goal Selector -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="coin-logo">💰</div>
+                <div>
+                    <h1>365天存钱计划</h1>
+                    <p class="subtitle">积小致巨 · 让存钱像打游戏一样有趣</p>
+                </div>
+            </div>
+            <div class="goal-picker-group">
+                <label for="planSelect">当前存钱模式：</label>
+                <select id="planSelect">
+                    <option value="365-step">365天阶梯挑战 (省下 ¥66,795)</option>
+                    <option value="100-hundred">100天每日百元 (目标 ¥10,000)</option>
+                    <option value="52-week">52周递增计划 (目标 ¥13,780)</option>
+                    <option value="custom">自定义小目标 (如买手机/旅游)</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Analytics Dashboard -->
+        <section class="dashboard-section">
+            <div class="metrics-grid">
+                <div class="metric-card gold">
+                    <span class="m-label">已累计存入金额</span>
+                    <div class="m-value"><span class="symbol">¥</span><span id="savedAmount">0</span></div>
+                    <span class="m-sub" id="targetTotalSub">目标金额: ¥66,795</span>
+                </div>
+                <div class="metric-card green">
+                    <span class="m-label">完成进度</span>
+                    <div class="m-value"><span id="progressPercent">0</span><span class="unit">%</span></div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressBarFill"></div>
+                    </div>
+                </div>
+                <div class="metric-card blue">
+                    <span class="m-label">已打卡天数</span>
+                    <div class="m-value"><span id="checkedCount">0</span><span class="unit">天</span></div>
+                    <span class="m-sub" id="daysLeftSub">还需打卡: 365 天</span>
+                </div>
+                <div class="metric-card purple">
+                    <span class="m-label">连续打卡纪录</span>
+                    <div class="m-value"><span id="streakDays">0</span><span class="unit">天 🔥</span></div>
+                    <span class="m-sub">保持好习惯！</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Action & Filter Controls -->
+        <section class="controls-section">
+            <div class="action-bar">
+                <div class="filter-chips">
+                    <button class="chip active" data-filter="all">全部格子 (<span id="countAll">365</span>)</button>
+                    <button class="chip" data-filter="pending">未完成 (<span id="countPending">365</span>)</button>
+                    <button class="chip" data-filter="done">已存入 (<span id="countDone">0</span>)</button>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="btnRandomDeposit">✨ 随机抽取打卡</button>
+                    <button class="btn btn-outline" id="btnResetData">🔄 重新开始</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Deposit Grid Board -->
+        <main class="grid-section">
+            <div class="grid-board" id="gridBoard">
+                <!-- Dynamic Grid Cells injected by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Celebration Modal -->
+    <div class="modal-overlay" id="celebrateModal">
+        <div class="modal-card">
+            <div class="modal-icon">🎉</div>
+            <h3>恭喜存入 <span id="modalDepositVal">10</span> 元！</h3>
+            <p>距离实现资产大目标又近了一步，继续保持！金币 +1 💰</p>
+            <button class="btn btn-primary full-width" id="closeModal">太棒了，继续加油！</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
